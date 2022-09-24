@@ -1,0 +1,191 @@
+{
+    "carrier": {
+        "name": "FMC126P",
+        "units": [
+            {
+                "type": "reg",
+                "name": "reg_main",
+                "offset": "0x00000200",
+                "info": "MAIN REG"
+            },
+            {
+                "type": "axis_fifo",
+                "name": "axis_fifo_c2h",
+                "offset": "0x00000400",
+                "info": "MAIN STREAM C2H"
+            },
+            {
+                "type": "axis_fifo",
+                "name": "axis_fifo_h2c",
+                "offset": "0x00000600",
+                "info": "MAIN STREAM H2C"
+            },
+            {
+                "type": "spi",
+                "name": "spi_icr",
+                "offset": "0x00000800",
+                "info": "ICR SPI",
+                "chips": [
+                    {
+                        "type": "_93aa66b",
+                        "name": "D20",
+                        "info": "93AA66B EEPROM",
+                        "cs_mask": "00000001",
+                        "frequency": "1 MHz",
+                        "cs_polarity": 1,
+                        "timeout": 2000
+                    }
+                ]
+            },
+            {
+                "type": "i2c",
+                "name": "i2c_fpga",
+                "offset": "0x00000A00",
+                "info": "MAIN I2C",
+                "chips": [
+                    {
+                        "type": "tca9548a",
+                        "name": "D23",
+                        "info": "TCA9548A Switch",
+                        "address": 112,
+                        "chips": [
+                            {
+                                "type": "adn4600",
+                                "name": "D13",
+                                "info": "ADN4600 Cross switch 8x8",
+                                "address": 72,
+                                "channel": 7,
+                                "timeout": 2000
+                            },
+                            {
+                                "type": "so_dimm",
+                                "name": "SO-DIMM DDR4",
+                                "address": 80,
+                                "channel": 6,
+                                "timeout": 2000
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "type": "sysmon",
+                "name": "sysmon",
+                "offset": "0x00002000",
+                "info": "SYSMON",
+                "nominals": {
+                    "temp_min": 10,
+                    "temp_max": 75,
+                    "vcc_int": 0.95,
+                    "vcc_aux": 1.8,
+                    "vcc_bram": 0.95,
+                    "vref_p": 1.25,
+                    "vref_n": 0
+                },
+                "converts": {
+                    "voltage": {
+                        "mult": 3,
+                        "power": 10,
+                        "offset": 0,
+                        "justify": 6
+                    },
+                    "temp": {
+                        "mult": 503.975,
+                        "power": 10,
+                        "offset": 273.15,
+                        "justify": 6
+                    }
+                }
+            },
+            {
+                "type": "spi",
+                "name": "spi_dds",
+                "offset": "0x00004200",
+                "info": "CLK BASE SPI",
+                "chips": [
+                    {
+                        "type": "ad9956",
+                        "name": "D3",
+                        "info": "AD9956 DDS",
+                        "cs_mask": "00000001",
+                        "frequency": "1 MHz",
+                        "cs_polarity": 1,
+                        "timeout": 2000
+                    }
+                ]
+            },
+            {
+                "type": "reg",
+                "name": "reg_dds",
+                "offset": "0x00004400",
+                "info": "CLK BASE REG"
+            },
+            {
+                "type": "reg",
+                "name": "reg_sdram",
+                "offset": "0x00008600",
+                "info": "SDRAM REG"
+            },
+            {
+                "type": "axis_fifo",
+                "name": "axis_fifo_c2h_sdram",
+                "offset": "0x00008200",
+                "info": "SDRAM STREAM C2H"
+            },
+            {
+                "type": "axis_fifo",
+                "name": "axis_fifo_h2c_sdram",
+                "offset": "0x00008400",
+                "info": "SDRAM STREAM H2C"
+            }
+        ],
+        "subsystems": [
+            {
+                "type": "icr_carrier",
+                "name": "CARRIER ICR",
+                "info": "Carrier Board ICR",
+                "chips": [
+                    "D20"
+                ]
+            },
+            {
+                "type": "clock_base",
+                "name": "CLOCK BASE",
+                "info": "Clock Base Subsystem",
+                "units": [
+                    "reg_main"
+                ],
+                "chips": [
+                    "D23",
+                    "D13",
+                    "D3"
+                ],
+                "refclock": "19200000"
+            },
+            {
+                "type": "power",
+                "name": "POWER",
+                "units": [
+                    "reg_main"
+                ]
+            },
+            {
+                "type": "main_stream",
+                "name": "MAIN STREAM",
+                "info": "Main Stream Test",
+                "units": [
+                    "axis_fifo_c2h",
+                    "axis_fifo_h2c"
+                ]
+            },
+            {
+                "type": "sdram_stream",
+                "name": "SDRAM STREAM",
+                "units": [
+                    "axis_fifo_c2h_sdram",
+                    "axis_fifo_h2c_sdram"
+                ]
+            }
+        ]
+    }
+}
