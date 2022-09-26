@@ -56,8 +56,8 @@ class unit_storage final {
     ///
     /// \tparam derrived_type Тип унаследованной юнита.
     /// \tparam base_type Тип родительской подситемы.
-    /// \param base Универсальная ссылка на родительскую подсистему.
-    /// \return auto Умный указатель на унаследованную подсистему.
+    /// \param base Универсальная ссылка на родительский юнит.
+    /// \return auto Умный указатель на унаследованный юнит.
     ///
     template <typename derrived_type, typename base_type = unit>
     auto unit_downcast(base_type&& base) const
