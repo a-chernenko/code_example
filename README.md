@@ -1,2 +1,2 @@
-# code_example
-My code example 
+## My code example (fragment of library) 
+
